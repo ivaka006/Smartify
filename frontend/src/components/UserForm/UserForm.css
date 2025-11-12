@@ -1,0 +1,48 @@
+.skill-form__wrapper {
+  max-width: 520px;
+  margin: 2rem auto;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.skill-form__wrapper h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+}
+
+.skill-form .field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.skill-form input,
+.skill-form select {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #cfcfcf;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.primary {
+  padding: 0.65rem 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  background: #282c34;
+  color: #fff;
+}
+
+.primary:hover {
+  opacity: 0.92;
+}
+
+.error {
+  color: #c62828;
+  font-size: 0.9rem;
+  margin: 0;
+}
