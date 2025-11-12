@@ -4,10 +4,8 @@ import UserForm from './components/UserForm/UserForm.jsx';
 
 function App() {
   return (
-    <div>
-      <Header />
+    <div> 
       <UserForm />
-      <Footer />
     </div>
   );
 }
