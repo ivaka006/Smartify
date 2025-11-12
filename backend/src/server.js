@@ -2,6 +2,8 @@ import express from 'express';
 import router from "./routes/routes.js";
 import { connctDB } from './config/db.js';
 import dotenv from "dotenv"
+import cookieParser from "cookie-parser";
+import cors from "cors";
 
 dotenv.config()
 
@@ -9,6 +11,12 @@ const app = express();
 
 connctDB()
 
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true,
+}));
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

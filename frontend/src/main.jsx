@@ -10,6 +10,7 @@ import Login from "./components/Login/Login.jsx";
 import Register from "./components/Register/Register.jsx";
 import About from "./components/About/About.jsx";
 import Contact from "./components/Contact/Contact.jsx";
+import { AuthProvider } from "./context/authContext.jsx";
 
 const router = createBrowserRouter([
   {

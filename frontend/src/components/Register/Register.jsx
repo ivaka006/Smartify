@@ -1,11 +1,52 @@
 import "./Register.css";
-import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, NavLink } from "react-router-dom";
 
-function Register() {
+export default function Register() {
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    const form = new FormData(e.currentTarget);
+    const body = {
+      username: form.get("name"),
+      email: form.get("email"),
+      password: form.get("password"),
+      rePassword: form.get("confirmPassword"),
+    };
+
+    try {
+      const res = await fetch("http://localhost:8000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // needed for cookies
+        body: JSON.stringify(body),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Registration failed.");
+
+      e.currentTarget.reset();
+      navigate("/"); // redirect after successful register
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <section className="register-container">
       <h2>Create an Account</h2>
-      <form className="register-form">
+
+      {error && <p style={{ color: "#c62828", marginBottom: "1rem" }}>{error}</p>}
+
+      <form className="register-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="name">Full Name</label>
           <input
@@ -50,14 +91,17 @@ function Register() {
           />
         </div>
 
-        <button type="submit" className="btn-register">Register</button>
+        <button type="submit" className="btn-register" disabled={loading}>
+          {loading ? "Registering..." : "Register"}
+        </button>
 
-        <p className="login-link">
-          Already have an account? <NavLink to="/login">Login here</NavLink>
+        <p className="login-link" style={{ marginTop: "0.75rem" }}>
+          Already have an account?{" "}
+          <NavLink to="/login" style={{ color: "#61dafb", textDecoration: "none" }}>
+            Login here
+          </NavLink>
         </p>
       </form>
     </section>
   );
 }
-
-export default Register;
