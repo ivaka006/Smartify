@@ -15,9 +15,11 @@
 .nav-links {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 
+/* Basic link styling */
 .nav-links a,
 .nav-links button {
   background: none;
@@ -28,7 +30,45 @@
   text-decoration: none;
 }
 
-.nav-links button:hover,
-.nav-links a:hover {
+.nav-links a:hover,
+.nav-links button:hover {
+  color: #61dafb;
+}
+
+/* === Dropdown (Courses ↓) styling === */
+#course-adding {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  padding-right: 1.2rem;
+  position: relative;
+  font-weight: 500;
+}
+
+/* Add the ↓ arrow via pseudo-element */
+#course-adding::after {
+  content: "↓";
+  margin-left: 0.5rem;
+}
+
+/* Make the dropdown options readable */
+#course-adding option {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Hide label (we’ll use the select text + arrow instead) */
+label[for="course-adding"] {
+  display: none;
+}
+
+/* On hover */
+#course-adding:hover {
   color: #61dafb;
 }
