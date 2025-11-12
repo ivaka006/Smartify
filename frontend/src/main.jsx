@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-//temporary 
+//temporary  
 import Login from './components/Login/login.jsx'
 import Register from './components/Register/Register.jsx'
 import About from './components/About/About.jsx'
