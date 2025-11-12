@@ -1,4 +1,5 @@
 import "./Header.css";
+import { Link, NavLink } from "react-router-dom";
 
 const courses = ["Chess", "React", "Biking"]
 
@@ -21,10 +22,10 @@ function Header() {
                 ))}
             </select>
           </li>
-
-          <li><a href="/login">Login</a></li>
-          <li><a href="/register">Register</a></li>
-          <li><a href="/logout">Logout</a></li>
+          <li><NavLink to="/">Home</NavLink></li>
+          <li><NavLink to="/login">Login</NavLink></li>
+          <li><NavLink to="/register">Register</NavLink></li>
+          <li><NavLink to="/logout">Logout</NavLink></li>
         </ul>
       </nav>
     </header>

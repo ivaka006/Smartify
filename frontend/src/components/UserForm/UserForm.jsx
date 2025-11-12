@@ -46,7 +46,7 @@ function UserForm() {
         </div>
 
         <button type="submit" className="primary">
-          Save Plan
+          Create Plan
         </button>
       </form>
     </section>
