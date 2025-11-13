@@ -10,62 +10,56 @@ export default function Register() {
   // Use .env in frontend: VITE_API_URL=http://localhost:8000
   const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setError(null);
+ async function handleSubmit(e) {
+  e.preventDefault();
+  setError(null);
 
-    const form = new FormData(e.currentTarget);
-    const body = {
-      username: form.get("name")?.trim(),
-      email: form.get("email")?.trim(),
-      password: form.get("password") || "",
-      rePassword: form.get("confirmPassword") || "",
-    };
+  // ✅ Keep a stable reference to the form element
+  const formEl = e.currentTarget;
 
-    // simple client-side check
-    if (body.password !== body.rePassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+  const form = new FormData(formEl);
+  const body = {
+    username: form.get("name")?.trim(),
+    email: form.get("email")?.trim(),
+    password: form.get("password") || "",
+    rePassword: form.get("confirmPassword") || "",
+  };
 
-    setLoading(true);
-    try {
-      const res = await fetch(`${API}/api/auth/register`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        credentials: "include", // keep if using cookie-based auth
-        body: JSON.stringify(body),
-      });
-
-      // Avoid JSON parsing of HTML error pages
-      const ct = res.headers.get("content-type") || "";
-      let data;
-      if (ct.includes("application/json")) {
-        data = await res.json();
-      } else {
-        const text = await res.text();
-        throw new Error(
-          `Unexpected response from server (status ${res.status}). ${text.slice(0, 120)}`
-        );
-      }
-
-      if (!res.ok) {
-        throw new Error(
-          data?.message || data?.error || "Registration failed."
-        );
-      }
-
-      e.currentTarget.reset();
-      navigate("/"); // success
-    } catch (err) {
-      setError(err.message || "Something went wrong.");
-    } finally {
-      setLoading(false);
-    }
+  if (body.password !== body.rePassword) {
+    setError("Passwords do not match.");
+    return;
   }
+
+  setLoading(true);
+  try {
+    const res = await fetch(`${API}/api/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+
+    const ct = res.headers.get("content-type") || "";
+    const data = ct.includes("application/json") ? await res.json() : null;
+
+    if (!res.ok) {
+      const msg = data?.message || data?.error || `Registration failed (${res.status}).`;
+      throw new Error(msg);
+    }
+
+    // ✅ Use the saved element (not e.currentTarget)
+    formEl.reset();
+    navigate("/");
+  } catch (err) {
+    setError(err.message || "Something went wrong.");
+  } finally {
+    setLoading(false);
+  }
+}
+
 
   return (
     <section className="register-container">
