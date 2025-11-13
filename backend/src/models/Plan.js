@@ -72,7 +72,7 @@ const PlanSchema = new Schema(
                 message: "daily_plan length must equal timeframe_days",
             },
         },
-        userID: {
+        userId: {
             type: String,
             required: true,
             min: 1,

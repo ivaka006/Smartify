@@ -3,7 +3,7 @@ import "./Preview.css";
 
 const PlanPage = ({plan, id}) => {
     const saveFunction = async (plan) =>{
-        const newPlan = {plan, "userId":id}
+        const newPlan = {...plan, "userId":id}
         const res = await fetch('http://localhost:8000/api/savePlan', {
             method: 'POST',
             headers: {
