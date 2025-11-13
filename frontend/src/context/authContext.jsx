@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
     fetchUser();
   }, [API]);
 
-  // 👇 ADD THIS FUNCTION
+
   async function logout() {
     try {
       await fetch(`${API}/api/auth/logout`, {
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
-      setUser(null); // clear user in state
+      setUser(null); 
     }
   }
 

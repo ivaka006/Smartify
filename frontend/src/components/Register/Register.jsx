@@ -1,11 +1,13 @@
 import "./Register.css";
 import { useState } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
+import { useAuth } from "../../context/authContext.jsx";
 
 export default function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { setUser } = useAuth();
 
   // Use .env in frontend: VITE_API_URL=http://localhost:8000
   const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
@@ -14,7 +16,7 @@ export default function Register() {
   e.preventDefault();
   setError(null);
 
-  // ✅ Keep a stable reference to the form element
+  
   const formEl = e.currentTarget;
 
   const form = new FormData(formEl);
@@ -50,6 +52,9 @@ export default function Register() {
       throw new Error(msg);
     }
 
+    // Save user in context so navbar updates immediately
+    setUser(data.user);
+
     // ✅ Use the saved element (not e.currentTarget)
     formEl.reset();
     navigate("/");
@@ -57,6 +62,7 @@ export default function Register() {
     setError(err.message || "Something went wrong.");
   } finally {
     setLoading(false);
+    
   }
 }
 
