@@ -9,8 +9,8 @@ function Header() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
-    await logout();        // calls backend + clears user in context
-    navigate("/login");    // redirect to login page
+    await logout();        
+    navigate("/login");    
   };
 
   return (
