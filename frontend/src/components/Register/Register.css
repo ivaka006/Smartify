@@ -1,80 +1,223 @@
+/* Register.css */
+
+:root {
+    --rg-primary: #4f46e5;
+    --rg-primary-light: #6366f1;
+    --rg-primary-soft: rgba(79, 70, 229, 0.08);
+    --rg-border: #e5e7eb;
+    --rg-bg: #f3f4f6;
+    --rg-text-main: #111827;
+    --rg-text-muted: #6b7280;
+    --rg-radius-lg: 16px;
+    --rg-radius-md: 10px;
+    --rg-shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.15);
+}
+
+/* Page wrapper */
 .register-container {
-  max-width: 400px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    min-height: 100vh;
+    padding: 2.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top, #e5e7eb 0, #f3f4f6 50%, #e5e7eb 100%);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: var(--rg-text-main);
+    box-sizing: border-box;
 }
 
-.register-container h2 {
-  margin-bottom: 1.5rem;
-  color: #282c34;
-  font-size: 1.8rem;
+/* Heading */
+.register-container > h2 {
+    font-size: 1.9rem;
+    font-weight: 650;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    color: var(--rg-text-main);
 }
 
+/* Card */
 .register-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    width: 100%;
+    max-width: 460px;
+    background: #ffffff;
+    border-radius: var(--rg-radius-lg);
+    box-shadow: var(--rg-shadow-soft);
+    padding: 2.1rem 2.4rem 2.4rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    position: relative;
+    overflow: hidden;
 }
 
+/* Soft gradient in background */
+.register-form::before {
+    content: "";
+    position: absolute;
+    inset: -35%;
+    background:
+            radial-gradient(circle at 0 0, rgba(79, 70, 229, 0.09), transparent 55%),
+            radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.09), transparent 55%);
+    opacity: 0.9;
+    z-index: -1;
+}
+
+/* Reuse same form-group style as Login */
 .form-group {
-  text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.1rem;
 }
 
-label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-weight: 600;
-  color: #333;
+/* Labels */
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--rg-text-muted);
 }
 
-input {
-  width: 100%;
-  padding: 0.7rem 0.9rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
+/* Inputs */
+.form-group input {
+    width: 100%;
+    padding: 0.7rem 0.8rem;
+    border-radius: var(--rg-radius-md);
+    border: 1px solid var(--rg-border);
+    font-size: 0.95rem;
+    background-color: rgba(255, 255, 255, 0.92);
+    outline: none;
+    transition:
+            border-color 0.18s ease,
+            box-shadow 0.18s ease,
+            background-color 0.18s ease,
+            transform 0.08s ease;
 }
 
-input:focus {
-  border-color: #61dafb;
-  outline: none;
-  box-shadow: 0 0 5px rgba(97, 218, 251, 0.4);
+/* Placeholder */
+.form-group input::placeholder {
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+/* Focus */
+.form-group input:focus {
+    border-color: var(--rg-primary);
+    box-shadow: 0 0 0 3px var(--rg-primary-soft);
+    background-color: #ffffff;
+    transform: translateY(-1px);
+}
+
+/* Hover */
+.form-group input:hover {
+    border-color: #cbd5f5;
+}
+
+/* Error text (if you want to switch from inline styles later) */
+.register-error {
+    color: #c62828;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
 }
 
 /* Register button */
 .btn-register {
-  background-color: #282c34;
-  color: #fff;
-  border: none;
-  padding: 0.8rem;
-  border-radius: 8px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 0.5rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--rg-primary), var(--rg-primary-light));
+    color: #ffffff;
+    box-shadow: 0 14px 28px rgba(79, 70, 229, 0.35);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+            transform 0.1s ease,
+            box-shadow 0.1s ease,
+            filter 0.1s ease;
 }
 
-.btn-register:hover {
-  background-color: #61dafb;
-  color: #000;
+/* Button hover/active */
+.btn-register:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 34px rgba(79, 70, 229, 0.4);
+    filter: brightness(1.03);
 }
 
-/* Login link */
+.btn-register:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.35);
+    filter: brightness(0.98);
+}
+
+/* Disabled state */
+.btn-register:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Login link text below form */
 .login-link {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #444;
+    margin-top: 0.9rem;
+    font-size: 0.9rem;
+    color: var(--rg-text-muted);
+    text-align: center;
 }
 
+/* Link styling inside paragraph */
 .login-link a {
-  color: #61dafb;
-  text-decoration: none;
+    font-weight: 600;
+    color: var(--rg-primary);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.15s ease;
+}
+
+/* Underline hover effect */
+.login-link a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--rg-primary), var(--rg-primary-light));
+    transform-origin: center;
+    transform: scaleX(0);
+    transition: transform 0.18s ease;
 }
 
 .login-link a:hover {
-  text-decoration: underline;
+    color: var(--rg-primary-light);
+}
+
+.login-link a:hover::after {
+    transform: scaleX(1);
+}
+
+/* Responsive tweaks */
+@media (max-width: 640px) {
+    .register-container {
+        padding: 2rem 1.2rem;
+    }
+
+    .register-form {
+        padding: 1.8rem 1.6rem 2.1rem;
+        border-radius: 14px;
+    }
+
+    .register-container > h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.25rem;
+    }
 }

@@ -1,29 +1,95 @@
+/* Footer.css */
+
+:root {
+    --ft-bg: rgba(15, 23, 42, 0.9);
+    --ft-border: rgba(148, 163, 184, 0.5);
+    --ft-text-main: #e5e7eb;
+    --ft-text-muted: #9ca3af;
+    --ft-primary: #4f46e5;
+}
+
+/* FOOTER WRAPPER */
 .footer {
-  background-color: #282c34;
-  color: #fff;
-  padding: 1rem 2rem;
-  text-align: center;
-  margin-top: auto;
+    width: 100%;
+    padding: 0.85rem 1.6rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    background: linear-gradient(
+            120deg,
+            rgba(37, 99, 235, 0.16),
+            rgba(6, 182, 212, 0.12)
+    ),
+    var(--ft-bg);
+    border-top: 1px solid var(--ft-border);
+    backdrop-filter: blur(10px);
+    color: var(--ft-text-main);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+    font-size: 0.85rem;
 }
 
+/* COPYRIGHT TEXT */
 .footer p {
-  margin: 0.5rem 0;
+    margin: 0;
+    color: var(--ft-text-muted);
 }
 
+/* LINKS LIST */
 .footer-links {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding: 0;
-  margin: 0;
+    display: flex;
+    list-style: none;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
 }
 
+/* INDIVIDUAL LINK */
 .footer-links a {
-  color: #61dafb;
-  text-decoration: none;
+    text-decoration: none;
+    color: var(--ft-text-main);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    transition:
+            background-color 0.18s ease,
+            color 0.18s ease,
+            border-color 0.18s ease,
+            transform 0.08s ease;
 }
 
+/* Hover */
 .footer-links a:hover {
-  text-decoration: underline;
+    background-color: rgba(15, 23, 42, 0.85);
+    border-color: rgba(148, 163, 184, 0.7);
+    transform: translateY(-1px);
+}
+
+/* Active NavLink */
+.footer-links a.active {
+    background: linear-gradient(135deg, var(--ft-primary), #6366f1);
+    border-color: transparent;
+    color: #ffffff;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+    .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0.9rem 1.1rem;
+        gap: 0.45rem;
+    }
+
+    .footer-links {
+        gap: 0.4rem;
+    }
+
+    .footer-links a {
+        padding: 0.3rem 0.6rem;
+    }
 }
