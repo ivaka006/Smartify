@@ -6,9 +6,7 @@ import { AuthProvider } from "../context/authContext.jsx";
 function Layout() {
   return (
     <div className="app-layout">
-        <AuthProvider>
         <Header />
-        </AuthProvider>
       <main className="main-content">
         <Outlet />
       </main>
