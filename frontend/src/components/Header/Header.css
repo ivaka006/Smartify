@@ -35,6 +35,17 @@
   color: #61dafb;
 }
 
+.nav-links a,
+.nav-links button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
 /* === Dropdown (Courses ↓) styling === */
 #course-adding {
   appearance: none;

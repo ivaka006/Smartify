@@ -1,9 +1,9 @@
 import { Router } from "express";
-import jwt from "jsonwebtoken";                    // ← add
+import jwt from "jsonwebtoken";                   
 import authService from "../services/authService.js";
-import { AUTH_COOKIE_NAME, TOKEN_SECRET } from "../constants.js"; // ← fix path/import
+import { AUTH_COOKIE_NAME, TOKEN_SECRET } from "../constants.js"; 
 import { getErrorMessage } from "../utils/errorUtils.js";
-import User from "../models/User.js";              // ← add
+import User from "../models/User.js";             
 
 const authController = Router();
 

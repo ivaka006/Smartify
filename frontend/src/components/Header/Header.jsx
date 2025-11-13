@@ -1,16 +1,23 @@
 import "./Header.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.jsx";
 
 const courses = ["Chess", "React", "Biking"];
 
 function Header() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await logout();        // calls backend + clears user in context
+    navigate("/login");    // redirect to login page
+  };
 
   return (
     <header className="header">
       <h2 className="logo">
-        Smartify {user ? <span className="user-tag">| User: {user.username}</span> : ""}
+        Smartify{" "}
+        {user ? <span className="user-tag">| User: {user.username}</span> : ""}
       </h2>
       <nav>
         <ul className="nav-links">
@@ -25,10 +32,31 @@ function Header() {
               ))}
             </select>
           </li>
-          <li><NavLink to="/">Home</NavLink></li>
-          <li><NavLink to="/login">Login</NavLink></li>
-          <li><NavLink to="/register">Register</NavLink></li>
-          <li><NavLink to="/logout">Logout</NavLink></li>
+
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+
+          {/* only show Login / Register if NOT logged in */}
+          {!user && (
+            <>
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+              <li>
+                <NavLink to="/register">Register</NavLink>
+              </li>
+            </>
+          )}
+
+          {/* show Logout button only when logged in */}
+          {user && (
+            <li>
+              <button onClick={handleLogout} className="logout-btn">
+                Logout
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
     </header>
