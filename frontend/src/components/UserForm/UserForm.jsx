@@ -3,15 +3,14 @@ import {useState} from 'react';
 import {toast} from 'react-toastify';
 import {useNavigate} from "react-router-dom";
 
-const UserForm = () => {
+const UserForm = ({setPlan}) => {
     const [topic, setTopic] = useState('Null');
     const [current_level, setCurrent_level] = useState('Null');
     const [goal_level, setGoal_level] = useState('Null');
     const [timeframe, setTimeframe] = useState('Null');
     const [dailyAvailability, setDailyAvailability] = useState('Null');
     const [userPreference, setUserPreference] = useState('Null');
-    const [plan, setPlan] = useState({});
-
+    const navigate = useNavigate();
 
     const submitForm = async (e) => {
         e.preventDefault();
@@ -39,8 +38,7 @@ const UserForm = () => {
         }
         const rawPlan = await res.json()
         setPlan(rawPlan);
-        toast.success('Job Added Successfully');
-        console.log(plan)
+        navigate("/preview");
     };
 
     return (<section className="skill-form__wrapper">
