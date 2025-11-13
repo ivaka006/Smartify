@@ -20,14 +20,15 @@ import {useNavigate} from "react-router-dom";
 
 const App = () => {
     const [plan, setPlan] = useState(null);
+    const [id, setId] = useState(null);
 
 
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path='/' element={<Layout />}>
                 <Route index element={<UserForm setPlan={setPlan} />} />
-                <Route path='/login' element={<Login />} />
-                <Route path='/preview' element={<Preview plan={plan} />} />
+                <Route path='/login' element={<Login setId={setId} />} />
+                <Route path='/preview' element={<Preview plan={plan} id={id} />} />
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />

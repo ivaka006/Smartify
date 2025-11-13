@@ -1,7 +1,19 @@
 import React from "react";
 import "./Preview.css";
 
-const PlanPage = ({ plan }) => {
+const PlanPage = ({plan, id}) => {
+    const saveFunction = async (plan) =>{
+        const newPlan = {plan, "userId":id}
+        const res = await fetch('http://localhost:8000/api/savePlan', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newPlan),
+        });
+    }
+    saveFunction(plan)
+    console.log(id)
     if (!plan) {
         return <div className="plan-page">No plan data available.</div>;
     }

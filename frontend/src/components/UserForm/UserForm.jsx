@@ -98,8 +98,7 @@ const UserForm = ({setPlan}) => {
                             id='goal_level'
                             name='goal_level'
                             className=' mb-2'
-                            placeholder='eg. Chess, Python...'
-                            required
+                            placeholder='eg. 30 days (optional)'
                             onChange={(e) => setTimeframe(e.target.value)}
                         />
                     </div>
@@ -109,9 +108,8 @@ const UserForm = ({setPlan}) => {
                             type='text'
                             id='dailyAvailability'
                             name='dailyAvailability'
-                            placeholder='eg. Chess, Python...'
-                            required
-                            value={dailyAvailability}
+                            className=' mb-2'
+                            placeholder='eg. 60 minutes (optional)'
                             onChange={(e) => setDailyAvailability(e.target.value)}
                         />
                     </div>
@@ -121,6 +119,7 @@ const UserForm = ({setPlan}) => {
                             type='text'
                             id='userPreferences'
                             name='userPreferences'
+                            placeholder='eg. I like to watch video tutorials (optional)'
                             className=' mb-2'
                             onChange={(e) => setUserPreference(e.target.value)}
                         />

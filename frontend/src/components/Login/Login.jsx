@@ -3,7 +3,7 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.jsx";
 
-function Login() {
+function Login({setId}) {
   const navigate = useNavigate();
   const { setUser } = useAuth();
 
@@ -43,7 +43,8 @@ function Login() {
 
       // Save user in context so navbar updates immediately
       setUser(data.user);
-
+      setId(data.user._id);
+      navigate("/preview")
       formEl.reset();
       navigate("/"); // redirect after login
     } catch (err) {
