@@ -7,34 +7,61 @@ export default function Register() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // Use .env in frontend: VITE_API_URL=http://localhost:8000
+  const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
-    setLoading(true);
 
     const form = new FormData(e.currentTarget);
     const body = {
-      username: form.get("name"),
-      email: form.get("email"),
-      password: form.get("password"),
-      rePassword: form.get("confirmPassword"),
+      username: form.get("name")?.trim(),
+      email: form.get("email")?.trim(),
+      password: form.get("password") || "",
+      rePassword: form.get("confirmPassword") || "",
     };
 
+    // simple client-side check
+    if (body.password !== body.rePassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const res = await fetch("http://localhost:8000/api/auth/register", {
+      const res = await fetch(`${API}/api/auth/register`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include", // needed for cookies
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        credentials: "include", // keep if using cookie-based auth
         body: JSON.stringify(body),
       });
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error || "Registration failed.");
+      // Avoid JSON parsing of HTML error pages
+      const ct = res.headers.get("content-type") || "";
+      let data;
+      if (ct.includes("application/json")) {
+        data = await res.json();
+      } else {
+        const text = await res.text();
+        throw new Error(
+          `Unexpected response from server (status ${res.status}). ${text.slice(0, 120)}`
+        );
+      }
+
+      if (!res.ok) {
+        throw new Error(
+          data?.message || data?.error || "Registration failed."
+        );
+      }
 
       e.currentTarget.reset();
-      navigate("/"); // redirect after successful register
+      navigate("/"); // success
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
@@ -44,7 +71,9 @@ export default function Register() {
     <section className="register-container">
       <h2>Create an Account</h2>
 
-      {error && <p style={{ color: "#c62828", marginBottom: "1rem" }}>{error}</p>}
+      {error && (
+        <p style={{ color: "#c62828", marginBottom: "1rem" }}>{error}</p>
+      )}
 
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="form-group">
@@ -77,6 +106,7 @@ export default function Register() {
             name="password"
             placeholder="Enter your password"
             required
+            minLength={6}
           />
         </div>
 
@@ -88,6 +118,7 @@ export default function Register() {
             name="confirmPassword"
             placeholder="Re-enter your password"
             required
+            minLength={6}
           />
         </div>
 
@@ -97,7 +128,10 @@ export default function Register() {
 
         <p className="login-link" style={{ marginTop: "0.75rem" }}>
           Already have an account?{" "}
-          <NavLink to="/login" style={{ color: "#61dafb", textDecoration: "none" }}>
+          <NavLink
+            to="/login"
+            style={{ color: "#61dafb", textDecoration: "none" }}
+          >
             Login here
           </NavLink>
         </p>

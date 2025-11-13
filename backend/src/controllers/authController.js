@@ -1,8 +1,9 @@
-// backend/src/controllers/authController.js
 import { Router } from "express";
+import jwt from "jsonwebtoken";                    // ← add
 import authService from "../services/authService.js";
-import { AUTH_COOKIE_NAME } from "../constants.js";
+import { AUTH_COOKIE_NAME, TOKEN_SECRET } from "../constants.js"; // ← fix path/import
 import { getErrorMessage } from "../utils/errorUtils.js";
+import User from "../models/User.js";              // ← add
 
 const authController = Router();
 
@@ -36,9 +37,10 @@ authController.post("/logout", (req, res) => {
   res.json({ ok: true });
 });
 
+// GET /api/auth/me
 authController.get("/me", async (req, res) => {
   try {
-    const token = req.cookies.auth; // AUTH_COOKIE_NAME
+    const token = req.cookies[AUTH_COOKIE_NAME];
     if (!token) return res.status(401).json({ error: "Not logged in" });
 
     const decoded = jwt.verify(token, TOKEN_SECRET);
