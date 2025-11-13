@@ -4,9 +4,7 @@ import UserForm from './components/UserForm/UserForm.jsx';
 
 function App() {
   return (
-    <div> 
-      {/*<UserForm />*/}
-    </div>
+      <UserForm />
   );
 }
 

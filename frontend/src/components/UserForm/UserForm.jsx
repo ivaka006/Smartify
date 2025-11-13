@@ -1,6 +1,7 @@
 import "./UserForm.css";
 import {useState} from 'react';
 import {toast} from 'react-toastify';
+import {useNavigate} from "react-router-dom";
 
 const UserForm = () => {
     const [topic, setTopic] = useState('Null');
@@ -9,9 +10,10 @@ const UserForm = () => {
     const [timeframe, setTimeframe] = useState('Null');
     const [dailyAvailability, setDailyAvailability] = useState('Null');
     const [userPreference, setUserPreference] = useState('Null');
+    const [plan, setPlan] = useState({});
 
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
 
         const inputData = {
@@ -22,15 +24,23 @@ const UserForm = () => {
             dailyAvailability,
             userPreference
         };
-        const plan = fetch("http://localhost:8000/api/getPlan", {method: 'POST',
+        console.log(JSON.stringify(inputData))
+        const res = await fetch("http://localhost:8000/api/getPlan", {method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(inputData),
         });
-        console.log(JSON.stringify(plan))
-        toast.success('Job Added Successfully');
 
+
+
+        if (!res.ok) {
+            throw new Error('Request failed: ' + res.status);
+        }
+        const rawPlan = await res.json()
+        setPlan(rawPlan);
+        toast.success('Job Added Successfully');
+        console.log(plan)
     };
 
     return (<section className="skill-form__wrapper">
@@ -49,7 +59,6 @@ const UserForm = () => {
                             className=' mb-2'
                             placeholder='eg. Chess, Python...'
                             required
-                            value={topic}
                             onChange={(e) => setTopic(e.target.value)}
                         />
                     </div>
@@ -61,7 +70,6 @@ const UserForm = () => {
                             name='current_level'
                             className=''
                             required
-                            value={current_level}
                             onChange={(e) => setCurrent_level(e.target.value)}
                         >
                             <option value='First-timer'>First-timer</option>
@@ -71,14 +79,13 @@ const UserForm = () => {
                         </select>
                     </div>
                     <div className="field">
-                        <label htmlFor='type'>Timeframel</label>
+                        <label htmlFor='type'>Goal level</label>
                         <select
-                            id='timeframe'
-                            name='timeframe'
+                            id='goal_level'
+                            name='goal_level'
                             className=''
                             required
-                            value={timeframe}
-                            onChange={(e) => setTimeframe(e.target.value)}
+                            onChange={(e) => setGoal_level(e.target.value)}
                         >
                             <option value='Beginner'>Beginner</option>
                             <option value='Intermediate'>Intermediate</option>
@@ -95,8 +102,7 @@ const UserForm = () => {
                             className=' mb-2'
                             placeholder='eg. Chess, Python...'
                             required
-                            value={goal_level}
-                            onChange={(e) => setGoal_level(e.target.value)}
+                            onChange={(e) => setTimeframe(e.target.value)}
                         />
                     </div>
                     <div className="field">
@@ -115,10 +121,9 @@ const UserForm = () => {
                         <label className='k text-gray-700 font-bold mb-2'>User preferences</label>
                         <input
                             type='text'
-                            id='title'
-                            name='title'
+                            id='userPreferences'
+                            name='userPreferences'
                             className=' mb-2'
-                            placeholder='eg. Chess, Python...'
                             onChange={(e) => setUserPreference(e.target.value)}
                         />
                     </div>
