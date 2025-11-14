@@ -1,56 +1,132 @@
+/* === Dark Modern About (Blue / Teal / Rose theme) === */
+
+:root {
+  --ab-bg: #020617;
+  --ab-text-main: #e5e7eb;
+  --ab-text-muted: #9ca3af;
+
+  --ab-blue: #3b82f6;
+  --ab-teal: #14b8a6;
+  --ab-rose: #f97373;
+}
+
+/* PAGE SECTION – between header & footer, full width */
 .about-container {
-  max-width: 940px;             
-  min-height: calc(87vh - 200px); 
-  margin: 2rem auto;
-  padding: 3rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;       
+  min-height: calc(100vh - 107px);
+  padding: 3rem 6vw;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(260px, 1.2fr);
+  column-gap: 2.5rem;
+  row-gap: 1.25rem;
+  align-items: center;
+
+  background:
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.25), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(244, 113, 182, 0.23), transparent 55%),
+    #020617;
+  color: var(--ab-text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-
+/* TITLE */
 .about-container h2 {
-  text-align: center;
-  color: #282c34;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
+  grid-column: 1 / 2;
+
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 1rem 0;
 }
 
+/* make “About Smartify” feel like two lines on bigger screens */
+@media (min-width: 900px) {
+  .about-container h2 {
+    white-space: pre-line; /* allows manual line breaks if you add them later */
+  }
+}
+
+/* PARAGRAPHS */
 .about-text {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #333;
-  margin-bottom: 1rem;
+  grid-column: 1 / 2;
+  max-width: 62rem;
+
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ab-text-main);
+  margin: 0 0 0.5rem 0;
 }
 
+/* emphasize strong and em like in the screenshot */
+.about-text strong {
+  font-weight: 700;
+}
+
+.about-text em {
+  font-style: italic;
+  color: var(--ab-teal);
+}
+
+/* HIGHLIGHT CARD ON THE RIGHT */
 .about-highlight {
-  margin-top: 2rem;
-  padding: 1rem;
-  text-align: center;
-  background-color: #61dafb1a;
-  border-left: 4px solid #61dafb;
-  border-radius: 8px;
-  color: #282c34;
-  font-size: 1.1rem;
-}
+  grid-column: 2 / 3;
+  grid-row: 1 / span 3;
 
+  align-self: center;
 
+  background: radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.25), transparent 55%),
+              radial-gradient(circle at 100% 100%, rgba(244, 113, 182, 0.25), transparent 55%),
+              #020617;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
 
-#root {
+  padding: 1.5rem 1.6rem;
+  color: var(--ab-text-main);
+
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
 }
 
-.app-layout {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+/* text inside highlight */
+.about-highlight p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.6;
 }
 
-.main-content {
-  flex: 1; 
+.about-highlight strong {
+  font-weight: 700;
+}
+
+/* RESPONSIVE – stack vertically on small screens */
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.4rem;
+    padding: 2.4rem 1.6rem;
+  }
+
+  .about-container h2 {
+    font-size: 2rem;
+    text-align: left;
+  }
+
+  .about-text {
+    font-size: 0.98rem;
+  }
+
+  .about-highlight {
+    grid-column: 1 / 2;
+    grid-row: auto;
+    max-width: 420px;
+    width: 100%;
+    margin-top: 0.5rem;
+    justify-self: flex-start;
+  }
 }
