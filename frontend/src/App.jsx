@@ -24,7 +24,7 @@ const App = () => {
     useEffect(() => {
         const loadPlans = async() =>{
             console.log(id)
-            const res = await fetch("http://localhost:8000/api/getPlan", {method: 'POST',
+            const res = await fetch("http://localhost:8000/api/loadPlan", {method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -37,9 +37,7 @@ const App = () => {
                 throw new Error('Request failed: ' + res.status);
             }
             const rawPlans = await res.json()
-            console.log(JSON.stringify(rawPlans))
             setPlans(rawPlans)
-            console.log(JSON.stringify(plans))
         }
         loadPlans()
     }, [id])
