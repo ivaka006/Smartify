@@ -2,9 +2,10 @@ import "./Header.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.jsx";
 
-const courses = ["Chess", "React", "Biking"];
 
-function Header({setId}) {
+
+
+function Header({setId, plan}) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -22,17 +23,10 @@ function Header({setId}) {
       </h2>
       <nav>
         <ul className="nav-links">
-          <li className="dropdown">
-            <label htmlFor="course-adding">Courses</label>
-            <select name="courses" id="course-adding">
-              <option value="">Courses ↓</option>
-              {courses.map((course) => (
-                <option key={course} value={course.toLowerCase()}>
-                  {course}
-                </option>
-              ))}
-            </select>
-          </li>
+    
+            <li>
+                <NavLink to="/plan-page">Courses</NavLink>
+            </li>
 
           <li>
             <NavLink to="/">Home</NavLink>

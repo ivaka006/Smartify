@@ -8,6 +8,7 @@ import "./index.css";
 
 import Layout from "./layout/Layout.jsx";
 
+import PlanPage from './components/Planpage/Planpage.jsx';
 import Login from "./components/Login/Login.jsx";
 import Register from "./components/Register/Register.jsx";
 import About from "./components/About/About.jsx";
@@ -47,6 +48,7 @@ const App = () => {
                 <Route index element={<UserForm setPlan={setPlan} />} />
                 <Route path='/login' element={<Login setId={setId}/>} />
                 <Route path='/preview' element={<Preview plan={plan} id={id} />} />
+                <Route path='/register' element={<Register/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
