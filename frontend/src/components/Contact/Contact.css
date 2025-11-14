@@ -1,32 +1,112 @@
+/* === Dark Modern Contact (Blue / Teal / Rose theme) === */
+
+:root {
+  --ct-bg: #020617;
+  --ct-text-main: #e5e7eb;
+  --ct-text-muted: #9ca3af;
+
+  --ct-blue: #3b82f6;
+  --ct-teal: #14b8a6;
+  --ct-rose: #f97373;
+}
+
+/* PAGE SECTION – full width between header & footer */
 .contact-container {
-  max-width: 600px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  min-height: calc(100vh - 107px);
+  padding: 3rem 6vw;
+  box-sizing: border-box;
+
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(260px, 1.2fr);
+  column-gap: 2.5rem;
+  row-gap: 1.25rem;
+  align-items: center;
+
+  background:
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.25), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(244, 113, 182, 0.23), transparent 55%),
+    var(--ct-bg);
+
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--ct-text-main);
 }
 
+/* TITLE */
 .contact-container h2 {
-  font-size: 2rem;
-  color: #282c34;
-  margin-bottom: 1rem;
+  grid-column: 1 / 2;
+
+  margin: 0 0 1rem 0;
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
+/* TEXT UNDER TITLE */
 .contact-text {
-  color: #444;
-  font-size: 1.05rem;
-  margin-bottom: 2rem;
-  line-height: 1.6;
+  grid-column: 1 / 2;
+  margin: 0;
+  max-width: 34rem;
+
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--ct-text-main);
+}
+
+.contact-text strong {
+  font-weight: 700;
+}
+
+/* INFO CARD ON THE RIGHT */
+.contact-info {
+  grid-column: 2 / 3;
+  grid-row: 1 / span 2;
+  align-self: center;
+
+  background:
+    radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.25), transparent 55%),
+    radial-gradient(circle at 100% 100%, rgba(20, 184, 166, 0.22), transparent 55%),
+    #020617;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+
+  padding: 1.6rem 1.7rem;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
 }
 
 .contact-info p {
-  font-size: 1.1rem;
-  color: #333;
-  margin: 0.5rem 0;
+  margin: 0.35rem 0;
+  font-size: 0.98rem;
+  color: var(--ct-text-main);
 }
 
 .contact-info strong {
-  color: #282c34;
+  color: var(--ct-teal);
+  font-weight: 700;
+}
+
+/* RESPONSIVE – stack on small screens */
+@media (max-width: 900px) {
+  .contact-container {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1.4rem;
+    padding: 2.4rem 1.6rem;
+  }
+
+  .contact-container h2 {
+    font-size: 2rem;
+  }
+
+  .contact-text {
+    max-width: none;
+  }
+
+  .contact-info {
+    grid-column: 1 / 2;
+    grid-row: auto;
+    max-width: 420px;
+    width: 100%;
+    margin-top: 0.5rem;
+    justify-self: flex-start;
+  }
 }

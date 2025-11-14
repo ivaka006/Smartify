@@ -1,96 +1,115 @@
-/* Register.css */
+
 
 :root {
-    --rg-primary: #4f46e5;
-    --rg-primary-light: #6366f1;
-    --rg-primary-soft: rgba(79, 70, 229, 0.08);
-    --rg-border: #e5e7eb;
-    --rg-bg: #f3f4f6;
-    --rg-text-main: #111827;
-    --rg-text-muted: #6b7280;
+    --rg-bg: #0f172a;                           /* page background */
+    --rg-surface: rgba(15, 23, 42, 0.94);       /* card background */
+    --rg-border: rgba(148, 163, 184, 0.35);
+
+    --rg-text-main: #e5e7eb;
+    --rg-text-muted: #9ca3af;
+
+    /* shared app palette */
+    --rg-blue: #3b82f6;
+    --rg-teal: #14b8a6;
+    --rg-rose: #f97373;
+
     --rg-radius-lg: 16px;
     --rg-radius-md: 10px;
-    --rg-shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.15);
+    --rg-shadow-soft: 0 22px 50px rgba(0, 0, 0, 0.55);
 }
 
-/* Page wrapper */
+/* PAGE WRAPPER (between header & footer) */
 .register-container {
-    min-height: 100vh;
-    padding: 2.5rem 1.5rem;
+    min-height: calc(100vh - 107px); /* space between sticky header and footer */
+    padding: 2.2rem 1.5rem;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: radial-gradient(circle at top, #e5e7eb 0, #f3f4f6 50%, #e5e7eb 100%);
+
+    background:
+        radial-gradient(circle at 15% 10%, rgba(59, 130, 246, 0.14), transparent 55%),
+        radial-gradient(circle at 85% 90%, rgba(244, 113, 182, 0.15), transparent 55%),
+        var(--rg-bg);
+
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--rg-text-main);
     box-sizing: border-box;
 }
 
-/* Heading */
+/* HEADING */
 .register-container > h2 {
     font-size: 1.9rem;
-    font-weight: 650;
-    letter-spacing: 0.03em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.7rem;
     color: var(--rg-text-main);
+    text-shadow: 0 0 14px rgba(59, 130, 246, 0.4);
 }
 
-/* Card */
+/* REGISTER CARD */
 .register-form {
     width: 100%;
     max-width: 460px;
-    background: #ffffff;
+
+    background: var(--rg-surface);
     border-radius: var(--rg-radius-lg);
     box-shadow: var(--rg-shadow-soft);
-    padding: 2.1rem 2.4rem 2.4rem;
-    border: 1px solid rgba(148, 163, 184, 0.2);
+
+    padding: 2.3rem 2.5rem 2.5rem;
+    border: 1px solid var(--rg-border);
+
     position: relative;
     overflow: hidden;
 }
 
-/* Soft gradient in background */
+/* Soft gradient glow inside */
 .register-form::before {
     content: "";
     position: absolute;
-    inset: -35%;
+    inset: -40%;
     background:
-            radial-gradient(circle at 0 0, rgba(79, 70, 229, 0.09), transparent 55%),
-            radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.09), transparent 55%);
+        radial-gradient(circle at 0 0, rgba(59, 130, 246, 0.16), transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(244, 113, 182, 0.14), transparent 60%);
     opacity: 0.9;
     z-index: -1;
 }
 
-/* Reuse same form-group style as Login */
+/* FORM GROUPS */
 .form-group {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    margin-bottom: 1.1rem;
+    gap: 0.45rem;
+    margin-bottom: 1.15rem;
 }
 
-/* Labels */
+/* LABELS */
 .form-group label {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--rg-text-muted);
 }
 
-/* Inputs */
+/* INPUTS */
 .form-group input {
     width: 100%;
-    padding: 0.7rem 0.8rem;
+    padding: 0.75rem 0.9rem;
+
     border-radius: var(--rg-radius-md);
     border: 1px solid var(--rg-border);
+
     font-size: 0.95rem;
-    background-color: rgba(255, 255, 255, 0.92);
+    color: var(--rg-text-main);
+    background: rgba(255, 255, 255, 0.06);
+
     outline: none;
     transition:
-            border-color 0.18s ease,
-            box-shadow 0.18s ease,
-            background-color 0.18s ease,
-            transform 0.08s ease;
+        border-color 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease,
+        transform 0.08s ease;
 }
 
 /* Placeholder */
@@ -99,125 +118,125 @@
     font-size: 0.9rem;
 }
 
-/* Focus */
+/* Hover / focus */
+.form-group input:hover {
+    border-color: var(--rg-blue);
+}
+
 .form-group input:focus {
-    border-color: var(--rg-primary);
-    box-shadow: 0 0 0 3px var(--rg-primary-soft);
-    background-color: #ffffff;
+    border-color: var(--rg-teal);
+    box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.3);
+    background: rgba(255, 255, 255, 0.12);
     transform: translateY(-1px);
 }
 
-/* Hover */
-.form-group input:hover {
-    border-color: #cbd5f5;
-}
-
-/* Error text (if you want to switch from inline styles later) */
+/* ERROR TEXT (optional utility class) */
 .register-error {
-    color: #c62828;
+    color: #f97373;
     margin-bottom: 1rem;
     font-size: 0.9rem;
 }
 
-/* Register button */
+/* REGISTER BUTTON */
 .btn-register {
     width: 100%;
     margin-top: 0.5rem;
+
     border: none;
     outline: none;
     cursor: pointer;
+
     border-radius: 999px;
-    padding: 0.85rem 1.1rem;
+    padding: 0.9rem 1.2rem;
+
     font-size: 0.95rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
+    font-weight: 700;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    background: linear-gradient(135deg, var(--rg-primary), var(--rg-primary-light));
+
+    background: linear-gradient(135deg, var(--rg-blue), var(--rg-teal));
     color: #ffffff;
-    box-shadow: 0 14px 28px rgba(79, 70, 229, 0.35);
+
+    box-shadow: 0 16px 34px rgba(59, 130, 246, 0.4);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     transition:
-            transform 0.1s ease,
-            box-shadow 0.1s ease,
-            filter 0.1s ease;
+        transform 0.1s ease,
+        box-shadow 0.1s ease,
+        filter 0.1s ease;
 }
 
-/* Button hover/active */
+/* Button hover / active / disabled */
 .btn-register:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 18px 34px rgba(79, 70, 229, 0.4);
-    filter: brightness(1.03);
+    filter: brightness(1.06);
+    box-shadow: 0 22px 44px rgba(59, 130, 246, 0.48);
 }
 
 .btn-register:active:not(:disabled) {
     transform: translateY(0);
-    box-shadow: 0 10px 20px rgba(79, 70, 229, 0.35);
-    filter: brightness(0.98);
+    box-shadow: 0 14px 28px rgba(59, 130, 246, 0.38);
 }
 
-/* Disabled state */
 .btn-register:disabled {
     opacity: 0.65;
     cursor: not-allowed;
     box-shadow: none;
-    transform: none;
 }
 
-/* Login link text below form */
+/* LOGIN LINK TEXT BELOW FORM */
 .login-link {
-    margin-top: 0.9rem;
+    margin-top: 1rem;
     font-size: 0.9rem;
     color: var(--rg-text-muted);
     text-align: center;
 }
 
-/* Link styling inside paragraph */
+/* link styling */
 .login-link a {
-    font-weight: 600;
-    color: var(--rg-primary);
+    font-weight: 700;
+    color: var(--rg-blue);
     text-decoration: none;
     position: relative;
     transition: color 0.15s ease;
 }
 
-/* Underline hover effect */
+.login-link a:hover {
+    color: var(--rg-teal);
+}
+
 .login-link a::after {
     content: "";
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -3px;
     height: 2px;
     width: 100%;
     border-radius: 999px;
-    background: linear-gradient(90deg, var(--rg-primary), var(--rg-primary-light));
+    background: linear-gradient(90deg, var(--rg-blue), var(--rg-teal));
     transform-origin: center;
     transform: scaleX(0);
     transition: transform 0.18s ease;
-}
-
-.login-link a:hover {
-    color: var(--rg-primary-light);
 }
 
 .login-link a:hover::after {
     transform: scaleX(1);
 }
 
-/* Responsive tweaks */
+/* RESPONSIVE TWEAKS */
 @media (max-width: 640px) {
     .register-container {
-        padding: 2rem 1.2rem;
+        padding: 1.9rem 1.1rem;
     }
 
     .register-form {
-        padding: 1.8rem 1.6rem 2.1rem;
+        padding: 1.9rem 1.7rem 2.2rem;
         border-radius: 14px;
     }
 
     .register-container > h2 {
         font-size: 1.6rem;
-        margin-bottom: 1.25rem;
+        margin-bottom: 1.3rem;
     }
 }
