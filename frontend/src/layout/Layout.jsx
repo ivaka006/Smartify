@@ -3,10 +3,10 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import { AuthProvider } from "../context/authContext.jsx";
 
-function Layout() {
+function Layout({setId}) {
   return (
     <div className="app-layout">
-        <Header />
+        <Header setId={setId}/>
       <main className="main-content">
         <Outlet />
       </main>

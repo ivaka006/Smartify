@@ -4,11 +4,12 @@ import { useAuth } from "../../context/authContext.jsx";
 
 const courses = ["Chess", "React", "Biking"];
 
-function Header() {
+function Header({setId}) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
+      setId(null)
     await logout();        
     navigate("/login");    
   };

@@ -1,5 +1,5 @@
 import "./Login.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext.jsx";
 
@@ -44,6 +44,7 @@ function Login({setId}) {
       // Save user in context so navbar updates immediately
       setUser(data.user);
       setId(data.user._id);
+      console.log("plans loaded")
       navigate("/preview")
       formEl.reset();
       navigate("/"); // redirect after login

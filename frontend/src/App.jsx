@@ -14,20 +14,40 @@ import About from "./components/About/About.jsx";
 import Contact from "./components/Contact/Contact.jsx";
 import UserForm from "./components/UserForm/UserForm.jsx";
 import Preview from "./components/Preview/Preview.jsx";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
 
 
 const App = () => {
     const [plan, setPlan] = useState(null);
+    const [plans, setPlans] = useState([])
     const [id, setId] = useState(null);
+    useEffect(() => {
+        const loadPlans = async() =>{
+            console.log(id)
+            const res = await fetch("http://localhost:8000/api/getPlan", {method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({userId:id}),
+            });
 
 
+
+            if (!res.ok) {
+                throw new Error('Request failed: ' + res.status);
+            }
+            const rawPlans = await res.json()
+            console.log(JSON.stringify(rawPlans))
+            setPlans(rawPlans)
+            console.log(JSON.stringify(plans))
+        }
+        loadPlans()
+    }, [id])
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <Route path='/' element={<Layout />}>
+            <Route path='/' element={<Layout setId={setId} />}>
                 <Route index element={<UserForm setPlan={setPlan} />} />
-                <Route path='/login' element={<Login setId={setId} />} />
+                <Route path='/login' element={<Login setId={setId}/>} />
                 <Route path='/preview' element={<Preview plan={plan} id={id} />} />
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/about' element={<About />} />
