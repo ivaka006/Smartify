@@ -53,9 +53,8 @@ const App = () => {
             <Route path='/' element={<Layout setId={setId} plans={plans} />}>
                 <Route index element={<UserForm setPlan={setPlan} />} />
                 <Route path='/login' element={<Login setId={setId}/>} />
-                {/*<Route path='/home' element={<PlanPage plans={plans}/>} />*/}
+                <Route path='/plan-page' element={<PlanPage plans={plans}/>} />
                 <Route path='/preview' element={<Preview plan={plan} id={id} />} />
-                <Route path='/register' element={<Register/>}/>
                 <Route path='/register' element={<Register/>}/>
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
