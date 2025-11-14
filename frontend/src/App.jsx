@@ -23,40 +23,36 @@ const App = () => {
     const [plans, setPlans] = useState([])
     const [id, setId] = useState(null);
     useEffect(() => {
-        if (id != null) {
-            const loadPlans = async () => {
-                console.log(id)
-                const res = await fetch("http://localhost:8000/api/loadPlan", {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({userId: id}),
-                });
+
+        
+
+        const loadPlans = async() =>{
+            console.log(id)
+            const res = await fetch("http://localhost:8000/api/loadPlan", {method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({userId:id}),
+            });
 
 
-                if (!res.ok) {
-                    throw new Error('Request failed: ' + res.status);
-                }
-                const rawPlans = await res.json()
-                setPlans(rawPlans)
+
+            if (!res.ok) {
+                throw new Error('Request failed: ' + res.status);
             }
-            loadPlans()
+            const rawPlans = await res.json()
+            setPlans(rawPlans)
         }
-    }, [id])
-    useEffect(() => {
-        console.log("Id has changed")
-        console.log(id)
+        loadPlans()
     }, [id])
     const router = createBrowserRouter(
         createRoutesFromElements(
-            <Route path='/' element={<Layout setId={setId} plans={plans} />}>
+            <Route path='/' element={<Layout setId={setId} />}>
                 <Route index element={<UserForm setPlan={setPlan} />} />
                 <Route path='/login' element={<Login setId={setId}/>} />
-                {/*<Route path='/home' element={<PlanPage plans={plans}/>} />*/}
                 <Route path='/preview' element={<Preview plan={plan} id={id} />} />
                 <Route path='/register' element={<Register/>}/>
-                <Route path='/register' element={<Register/>}/>
+                <Route path="/plan-page" element={<PlanPage plans={plans} />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
             </Route>
