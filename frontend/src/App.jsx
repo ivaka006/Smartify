@@ -23,24 +23,30 @@ const App = () => {
     const [plans, setPlans] = useState([])
     const [id, setId] = useState(null);
     useEffect(() => {
-        const loadPlans = async() =>{
-            console.log(id)
-            const res = await fetch("http://localhost:8000/api/loadPlan", {method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({userId:id}),
-            });
+        if (id != null) {
+            const loadPlans = async () => {
+                console.log(id)
+                const res = await fetch("http://localhost:8000/api/loadPlan", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({userId: id}),
+                });
 
 
-
-            if (!res.ok) {
-                throw new Error('Request failed: ' + res.status);
+                if (!res.ok) {
+                    throw new Error('Request failed: ' + res.status);
+                }
+                const rawPlans = await res.json()
+                setPlans(rawPlans)
             }
-            const rawPlans = await res.json()
-            setPlans(rawPlans)
+            loadPlans()
         }
-        loadPlans()
+    }, [id])
+    useEffect(() => {
+        console.log("Id has changed")
+        console.log(id)
     }, [id])
     const router = createBrowserRouter(
         createRoutesFromElements(
