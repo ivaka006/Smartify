@@ -1,19 +1,39 @@
 import React from "react";
 import "./Preview.css";
+import {useNavigate} from "react-router-dom";
 
-const PlanPage = ({plan, id}) => {
-    const saveFunction = async (plan) =>{
-        const newPlan = {...plan, "userId":id}
-        const res = await fetch('http://localhost:8000/api/savePlan', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newPlan),
-        });
+const PlanPage = ({ plan, id }) => {
+    const navigate = useNavigate();
+
+    const saveFunction = async () => {
+        if (!plan) return;
+        if ( id== null ){
+            navigate("/login")
+            console.log("User not logged in")
+            return;
+        }
+        const newPlan = { ...plan, userId: id }; // note: userID if your schema expects that!
+        try {
+            const res = await fetch("http://localhost:8000/api/savePlan", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newPlan),
+            });
+
+            if (!res.ok) {
+                console.error("Failed to save plan");
+            } else {
+                console.log("Plan saved successfully");
+            }
+        } catch (err) {
+            console.error("Error saving plan:", err);
+        }
+    };
+    const reworkPlan = async () =>{
+        navigate("/")
     }
-    saveFunction(plan)
-    console.log(id)
     if (!plan) {
         return <div className="plan-page">No plan data available.</div>;
     }
@@ -53,10 +73,18 @@ const PlanPage = ({plan, id}) => {
                     <div className="summary-item">
                         <span className="summary-label">Daily time</span>
                         <span className="summary-value">
-              {daily_availability_minutes} min/day
-            </span>
+                            {daily_availability_minutes} min/day
+                        </span>
                     </div>
                 </div>
+
+                {/* ✅ Save button */}
+                <button className="save-button" onClick={saveFunction}>
+                    Save plan
+                </button>
+                <button className="rework-plan" onClick={reworkPlan}>
+                    Rework plan
+                </button>
             </header>
 
             {/* Daily Plan */}
@@ -69,19 +97,19 @@ const PlanPage = ({plan, id}) => {
                                     Day {dayItem.day}: {dayItem.task_title}
                                 </h2>
                                 <span className="success-criteria-label">
-                  Success criteria:
-                </span>{" "}
+                                    Success criteria:
+                                </span>{" "}
                                 <span className="success-criteria-text">
-                  {dayItem.success_criteria}
-                </span>
+                                    {dayItem.success_criteria}
+                                </span>
                             </div>
                             <span
                                 className={`status-pill ${
                                     dayItem.done ? "status-done" : "status-planned"
                                 }`}
                             >
-                {dayItem.done ? "Done" : "Planned"}
-              </span>
+                                {dayItem.done ? "Done" : "Planned"}
+                            </span>
                         </header>
 
                         <ul className="steps-list">
