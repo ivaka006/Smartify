@@ -16,35 +16,40 @@ import Contact from "./components/Contact/Contact.jsx";
 import UserForm from "./components/UserForm/UserForm.jsx";
 import Preview from "./components/Preview/Preview.jsx";
 import {useEffect, useState} from "react";
+import {useAuth} from "./context/authContext.jsx";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
 
 const App = () => {
     const [plan, setPlan] = useState(null);
-    const [plans, setPlans] = useState([])
+    const [plans, setPlans] = useState([]);
     const [id, setId] = useState(null);
+    const { user } = useAuth();
+
+    // Keep id in sync with auth context so page refresh doesn't lose user state
     useEffect(() => {
+        if (user?._id) setId(user._id);
+        else setId(null);
+    }, [user]);
 
-        
-
-        const loadPlans = async() =>{
-            console.log(id)
-            const res = await fetch("http://localhost:8000/api/loadPlan", {method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({userId:id}),
-            });
-
-
-
-            if (!res.ok) {
-                throw new Error('Request failed: ' + res.status);
+    useEffect(() => {
+        if (!id) return;
+        const loadPlans = async () => {
+            try {
+                const res = await fetch(`${API}/api/loadPlan`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: id }),
+                });
+                if (!res.ok) throw new Error('Request failed: ' + res.status);
+                const rawPlans = await res.json();
+                setPlans(rawPlans);
+            } catch (err) {
+                console.error('Failed to load plans:', err);
             }
-            const rawPlans = await res.json()
-            setPlans(rawPlans)
-        }
-        loadPlans()
-    }, [id])
+        };
+        loadPlans();
+    }, [id]);
     const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path='/' element={<Layout setId={setId} />}>

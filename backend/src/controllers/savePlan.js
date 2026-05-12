@@ -14,6 +14,4 @@ export const savePlan = async (req, res, next) =>{
         console.error("Error saving plan:", err);
         res.status(500).json({ error: "Failed to save plan" });
     }
-    console.log(JSON.stringify(req.body))
-    return next;
 }

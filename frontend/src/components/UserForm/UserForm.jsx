@@ -4,12 +4,12 @@ import {toast} from 'react-toastify';
 import {useNavigate} from "react-router-dom";
 
 const UserForm = ({setPlan}) => {
-    const [topic, setTopic] = useState('Null');
-    const [current_level, setCurrent_level] = useState('Null');
-    const [goal_level, setGoal_level] = useState('Null');
-    const [timeframe, setTimeframe] = useState('Null');
-    const [dailyAvailability, setDailyAvailability] = useState('Null');
-    const [userPreference, setUserPreference] = useState('Null');
+    const [topic, setTopic] = useState('');
+    const [current_level, setCurrent_level] = useState('first-timer');
+    const [goal_level, setGoal_level] = useState('beginner');
+    const [timeframe, setTimeframe] = useState('');
+    const [dailyAvailability, setDailyAvailability] = useState('');
+    const [userPreference, setUserPreference] = useState('');
     const navigate = useNavigate();
 
     const submitForm = async (e) => {
@@ -68,12 +68,13 @@ const UserForm = ({setPlan}) => {
                             name='current_level'
                             className=''
                             required
+                            value={current_level}
                             onChange={(e) => setCurrent_level(e.target.value)}
                         >
-                            <option value='First-timer'>First-timer</option>
-                            <option value='Beginner'>Beginner</option>
-                            <option value='Intermediate'>Intermediate</option>
-                            <option value='Advanced'>Advanced</option>
+                            <option value='first-timer'>First-timer</option>
+                            <option value='beginner'>Beginner</option>
+                            <option value='intermediate'>Intermediate</option>
+                            <option value='advanced'>Advanced</option>
                         </select>
                     </div>
                     <div className="field">
@@ -83,12 +84,12 @@ const UserForm = ({setPlan}) => {
                             name='goal_level'
                             className=''
                             required
+                            value={goal_level}
                             onChange={(e) => setGoal_level(e.target.value)}
                         >
-                            <option value='Beginner'>Beginner</option>
-                            <option value='Intermediate'>Intermediate</option>
-                            <option value='Advanced'>Advanced</option>
-
+                            <option value='beginner'>Beginner</option>
+                            <option value='intermediate'>Intermediate</option>
+                            <option value='advanced'>Advanced</option>
                         </select>
                     </div>
                     <div className="field">

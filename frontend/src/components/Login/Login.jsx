@@ -44,10 +44,8 @@ function Login({setId}) {
       // Save user in context so navbar updates immediately
       setUser(data.user);
       setId(data.user._id);
-      console.log("plans loaded")
-      navigate("/preview")
       formEl.reset();
-      navigate("/"); // redirect after login
+      navigate("/");
     } catch (err) {
       setError(err.message || "Something went wrong");
     } finally {
